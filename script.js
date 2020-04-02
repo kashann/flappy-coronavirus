@@ -25,16 +25,19 @@ if(highscore == null) {
     highscore = 0;
 }
 
-// on key down
+// on key down or click/simple touch
 var events = ['keydown', 'click'];
 for(var i = 0; i < events.length; i++) {
     document.addEventListener(events[i], event => {
-        if(event.keyCode === 27) { // esc to pause   
-            paused = !paused;
-            draw();
-        }
-        else {
-            moveUp();
+        switch(event.keyCode) {
+            case 27: // ESC key
+                togglePause();
+                break;
+            default:
+                if(!paused){
+                    moveUp();
+                }
+                break;
         }
     });
 }
@@ -42,7 +45,7 @@ for(var i = 0; i < events.length; i++) {
 function moveUp() {
     bY -= 30;
     var floating = 0;
-    // makes the virus a bit floaty
+    // makes the virus a bit floaty at the top
     var intervalId = setInterval(function() {
         bY -= 1;
         floating++;
@@ -50,6 +53,11 @@ function moveUp() {
             clearInterval(intervalId);
         }
     }, 16.66);
+}
+
+function togglePause() {
+    paused = !paused;
+    draw();
 }
 
 // pipe coordinates
@@ -73,20 +81,20 @@ function draw(){
             pipe.push({
                 x : cvs.width,
                 y : Math.floor(Math.random() * upperPipe.height) - upperPipe.height
-            }); 
+            });
         }
 
         // detect collision 
         if(bX + corona.width >= pipe[i].x && bX <= pipe[i].x + upperPipe.width && 
             (bY <= pipe[i].y + upperPipe.height || bY + corona.height >= pipe[i].y + constant) || 
             bY + corona.height >= cvs.height - fg.height) {
-                if (score > highscore) {
-                    localStorage.setItem("high-score", score); // save the high score in local storage
-                }
-                location.reload(); // restart the game by reloading the page
+            if (score > highscore) {
+                localStorage.setItem("high-score", score); // save the high score in local storage
+            }
+            location.reload(); // restart the game by reloading the page
         }
         
-        if(pipe[i].x == 5){
+        if(pipe[i].x == 5) {
             score++;
             scoreSound.play();
         }
@@ -101,11 +109,9 @@ function draw(){
     ctx.fillText("Score : " + score, 10, cvs.height - 45);
     ctx.fillText("High Score : " + highscore, 10, cvs.height - 20);
 
-    if(paused) {
-        Update();
+    if(!paused) {
+        requestAnimationFrame(draw);
     }
-    
-    requestAnimationFrame(draw);  
 }
 
 draw();
