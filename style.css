@@ -2,7 +2,6 @@
 
 * {
 	box-sizing: border-box;
-	touch-action: manipulation;
 }
 
 body {
@@ -12,6 +11,7 @@ body {
 	margin: 0;
 	overflow: hidden;
 	text-align: center;
+	touch-action: manipulation;
 }
 
 a {
