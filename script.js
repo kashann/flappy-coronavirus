@@ -35,6 +35,8 @@ for(var i = 0; i < events.length; i++) {
             draw();
         }
         else {
+            if(events[i] == 'touchstart')
+                event.preventDefault();
             moveUp();
         }
     });
