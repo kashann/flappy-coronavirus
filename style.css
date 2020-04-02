@@ -17,6 +17,11 @@ a {
 	color: #ffffff;
 }
 
-h1 {
-	line-height: 1.4;
+@media screen and (max-width: 480px) {
+	h1 {
+		font-size: x-large;
+	}
+	h4 {
+		font-size: medium;
+	}
 }

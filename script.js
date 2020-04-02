@@ -27,15 +27,18 @@ if(highscore == null) {
 }
 
 // on key down
-document.addEventListener("keydown", event => {
-    if(event.keyCode === 27) { // esc to pause   
-        paused = !paused;
-        draw();
-    }
-    else {
-        moveUp();
-    }
-});
+var events = ['keydown', 'touchstart'];
+for(var i = 0; i < events.length; i++) {
+    document.addEventListener(events[i], event => {
+        if(event.keyCode === 27) { // esc to pause   
+            paused = !paused;
+            draw();
+        }
+        else {
+            moveUp();
+        }
+    });
+}
 
 function moveUp() {
     bY -= 30;
