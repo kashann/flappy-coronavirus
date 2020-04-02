@@ -15,7 +15,6 @@ lowerPipe.src = "images/lowerPipe.png";
 
 // some variables
 var gap = 90;
-var constant;
 var bX = 10;
 var bY = 150;
 var gravity = 1.7;
@@ -43,6 +42,7 @@ for(var i = 0; i < events.length; i++) {
 function moveUp() {
     bY -= 30;
     var floating = 0;
+    // makes the virus a bit floaty
     var intervalId = setInterval(function() {
         bY -= 1;
         floating++;
@@ -64,12 +64,11 @@ function draw(){
     ctx.drawImage(bg, 0, 0);
     
     for(var i = 0; i < pipe.length; i++) {        
-        constant = upperPipe.height + gap;
+        var constant = upperPipe.height + gap;
         ctx.drawImage(upperPipe, pipe[i].x, pipe[i].y);
         ctx.drawImage(lowerPipe, pipe[i].x, pipe[i].y + constant);
              
-        pipe[i].x--;
-        
+        pipe[i].x--; 
         if(pipe[i].x == 125) {
             pipe.push({
                 x : cvs.width,
@@ -80,11 +79,11 @@ function draw(){
         // detect collision 
         if(bX + corona.width >= pipe[i].x && bX <= pipe[i].x + upperPipe.width && 
             (bY <= pipe[i].y + upperPipe.height || bY + corona.height >= pipe[i].y + constant) || 
-            bY + corona.height >=  cvs.height - fg.height) {
+            bY + corona.height >= cvs.height - fg.height) {
                 if (score > highscore) {
-                    localStorage.setItem("high-score", score); // save the high score    
+                    localStorage.setItem("high-score", score); // save the high score in local storage
                 }
-                location.reload(); // reload the page
+                location.reload(); // restart the game by reloading the page
         }
         
         if(pipe[i].x == 5){
