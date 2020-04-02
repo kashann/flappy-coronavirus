@@ -23,6 +23,6 @@ a {
 		font-size: x-large;
 	}
 	h4 {
-		font-size: medium;
+		display: none;
 	}
 }
