@@ -29,16 +29,22 @@ if (highscore == null) {
 var events = ["keydown", "click"];
 for (var i = 0; i < events.length; i++) {
   document.addEventListener(events[i], event => {
-    switch (event.keyCode) {
-      case 27: // ESC key
+    if (event.keyCode === 27) {
         togglePause();
-        break;
-      default:
-        if (!paused) {
-          moveUp();
-        }
-        break;
     }
+    else if(!paused) {
+        moveUp();
+    }
+    // switch (event.keyCode) {
+    //   case 27: // ESC key
+    //     togglePause();
+    //     break;
+    //   default:
+    //     if (!paused) {
+    //       moveUp();
+    //     }
+    //     break;
+    // }
   });
 }
 
