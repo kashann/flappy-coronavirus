@@ -35,16 +35,6 @@ for (var i = 0; i < events.length; i++) {
     else if(!paused) {
         moveUp();
     }
-    // switch (event.keyCode) {
-    //   case 27: // ESC key
-    //     togglePause();
-    //     break;
-    //   default:
-    //     if (!paused) {
-    //       moveUp();
-    //     }
-    //     break;
-    // }
   });
 }
 
@@ -63,7 +53,9 @@ function moveUp() {
 
 function togglePause() {
   paused = !paused;
-  draw();
+  if (!paused) {
+    draw();
+  }
 }
 
 function generateNextPosition(distance, maxHeight) {
@@ -124,7 +116,8 @@ function draw() {
       if (score > highscore) {
         localStorage.setItem("high-score", score); // save the high score in local storage
       }
-      location.reload(); // restart the game by reloading the page
+      // location.reload() is ignored by github pages
+      window.location.href = window.location.href; // restart the game by reloading the page
     }
 
     if (currentPipe.x == 5) {
